@@ -638,37 +638,86 @@
 // sayHi("Anu Poudel");
 
 // ---------------
-const personBio = [
-  {
-    name: "Sahil Shrestha",    // Name of the first person
-    Hobby: "Coding",           // Hobby of the first person
-    address: "Itahari",        // Address of the first person
-    Course: "CSIT",            // Course of the first person
-  },
-  {
-    name: "Anu Poudel",        // Name of the second person
-    Hobby: "Gaming",           // Hobby of the second person
-    // No address or Course for the second person
-  },
-];
+// const personBio = [
+//   {
+//     name: "Sahil Shrestha",    // Name of the first person
+//     Hobby: "Coding",           // Hobby of the first person
+//     address: "Itahari",        // Address of the first person
+//     Course: "CSIT",            // Course of the first person
+//   },
+//   {
+//     name: "Anu Poudel",        // Name of the second person
+//     Hobby: "Gaming",           // Hobby of the second person
+//     // No address or Course for the second person
+//   },
+// ];
 
-// Function to add address and course details if available
-const add = ({ address, Course }) => {
-  return ` I live in ${address} and I am studying ${Course}.`;  // Constructs a string using address and course
+// // Function to add address and course details if available
+// const add = ({ address, Course }) => {
+//   return ` I live in ${address} and I am studying ${Course}.`;  // Constructs a string using address and course
+// };
+
+// // Function to display person details
+// const person = ({ name, Hobby, ...rest }) => {
+//   let str = `Hi I'm ${name} and I love ${Hobby}.`;  // Initial greeting with name and hobby
+//   if (rest.address) {                               // Checks if the person has an address
+//     str += add(rest);                               // Adds address and course details if available
+//   }
+//   return str;
+// };
+
+// // Accessing the array and logging each person's info
+// personBio.forEach((item) => {
+//   const data = person(item);   // Calls the person function for each item in personBio
+//   console.log(data);           // Outputs the result
+// });
+
+// ------------set time--------------
+// -----1. SetTimeout----
+// console.log("Before setTimeout");
+// const val = setTimeout(() => {
+//   console.log("After setTimeout"); // This will execute after a 1-second delay
+// }, 1000); // 1000 milliseconds = 1 second
+// clearTimeout(val); // Cancels the timeout stored in val
+
+//-------2. SetInterval
+// let counter = 10;
+// const val = setInterval(() => {
+//   console.log("special event in", --counter); // Decrement counter first, then print
+//   if (counter === 0) {
+//     clearInterval(val); // Stops the interval
+//     console.log("happy birthday");
+//   }
+// }, 1000);
+
+
+///// what is the order of output guess
+
+const yoyo = ( ) => console.log("0. " + (5 + 6)); 
+
+console.log("1. log"); // Synchronous, executes immediately
+
+setTimeout(( ) => {
+    console.log("2. inside first set timeout");
+}, 5000); // Asynchronous, delayed by 5 seconds
+
+console.log("3. after first setTimeout"); // Synchronous, executes immediately
+
+const sayHey = ( ) => {
+    console.log("4. inside sayHey");
+    yoyo( ); // Synchronous call to yoyo function
 };
 
-// Function to display person details
-const person = ({ name, Hobby, ...rest }) => {
-  let str = `Hi I'm ${name} and I love ${Hobby}.`;  // Initial greeting with name and hobby
-  if (rest.address) {                               // Checks if the person has an address
-    str += add(rest);                               // Adds address and course details if available
-  }
-  return str;
-};
+setTimeout(( ) => {
+    console.log("5. inside second set timeout");
+}, 0); // Asynchronous, delayed by 0ms, but runs after all synchronous code completes
 
-// Accessing the array and logging each person's info
-personBio.forEach((item) => {
-  const data = person(item);   // Calls the person function for each item in personBio
-  console.log(data);           // Outputs the result
-});
+sayHey( ); // Synchronous, executes immediately
 
+// Output order:
+// 1. log
+// 3. after first setTimeout
+// 4. inside sayHey
+// 0. 11
+// 5. inside second set timeout
+// 2. inside first set timeout (after 5 seconds)
